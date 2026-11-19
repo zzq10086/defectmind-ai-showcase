@@ -4,6 +4,8 @@
 
 常德学院 AIGC 创新创业大赛 · 赛道三「AIGC 赋能工业场景」
 
+**在线访问**：<https://zzq10086.github.io/defectmind-ai-showcase/>
+
 项目以 NEU-DET 热轧钢材表面缺陷数据集为基础，用 YOLO26n 与 Stable Diffusion 1.5 Inpainting
 建立四组严格对照，回答一个具体问题：**在小样本条件下，扩散增强到底有没有用？**
 
