@@ -368,6 +368,10 @@
 
   /* platform */
   .platform{background:var(--paper)}
+  .platform-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:2px 0 22px}
+  .platform-cta .btn{font-size:13px}
+  .cta-note{font-size:11.5px;color:var(--muted);line-height:1.6;max-width:560px}
+  .cta-note b{color:var(--ink);font-weight:650}
   .platform-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:stretch}
   .browser{
     background:#101b21;border-radius:16px;overflow:hidden;border:1px solid rgba(10,18,23,.12);
@@ -772,6 +776,10 @@
       <div class="section-label">06 / 检测平台</div>
       <h2>从一张图，<br>到一条可追溯记录。</h2>
       <p>检测工作台、历史记录、实验对比三页打通；平台与离线预测同权重、同参数、同后处理，冒烟测试 18/18 一致。</p>
+    </div>
+    <div class="platform-cta" data-reveal>
+      <a class="btn btn-primary" href="https://screening-prospects-ceiling-briefly.trycloudflare.com" target="_blank" rel="noopener">打开在线检测平台 <span aria-hidden="true">↗</span></a>
+      <span class="cta-note"><b>公开演示实例</b> · 本机 CPU 推理，首次打开约 10–20 秒；请勿上传敏感图片。</span>
     </div>
     <div class="platform-grid">
       <div class="browser" data-reveal>
