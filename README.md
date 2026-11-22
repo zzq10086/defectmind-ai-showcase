@@ -4,7 +4,8 @@
 
 常德学院 AIGC 创新创业大赛 · 赛道三「AIGC 赋能工业场景」
 
-**在线访问**：<https://zzq10086.github.io/defectmind-ai-showcase/>
+**项目展示页**：<https://zzq10086.github.io/defectmind-ai-showcase/>  
+**在线检测平台（永久地址）**：<https://zzq10086.github.io/defectmind-ai-showcase/platform/>
 
 项目以 NEU-DET 热轧钢材表面缺陷数据集为基础，用 YOLO26n 与 Stable Diffusion 1.5 Inpainting
 建立四组严格对照，回答一个具体问题：**在小样本条件下，扩散增强到底有没有用？**
@@ -45,14 +46,18 @@
 - **定向人工复核**：47 行（A16 / B1 / C14 / D16，人工 31 行 + AI 16 行）；
   结论是无图需删除，主因是低对比度而非错标。
 - **四组实验**：A/B/C/D 各一份 `best.pt`，共 12 次评估，校验文件齐全。
-- **检测平台**：Streamlit 三页（检测工作台 / 历史记录 / 实验对比），SQLite 落库；
-  冒烟测试 18/18 PASS，最大坐标偏差 0.00px；CPU 预热后单张约 25 ms。
+- **检测平台**：同一套三页体验（检测工作台 / 历史记录 / 实验对比），提供 Streamlit 本地版与
+  GitHub Pages 纯浏览器版。公网版免登录、无需服务器，图片只在本机浏览器推理；历史记录存入
+  当前浏览器 IndexedDB。本地 Streamlit 冒烟测试 18/18 PASS，最大坐标偏差 0.00px。
 - **参赛材料**：`reports/materials/`，含 12 页答辩 PPT、12 页项目说明书（DOCX + PDF）、
   一页式展示页、路演讲稿、20 题问答、视频脚本与录屏清单。
 
 ## 快速开始
 
 ```bash
+# 公网检测平台（无需安装，直接打开）
+# https://zzq10086.github.io/defectmind-ai-showcase/platform/
+
 # 检测平台（Windows）
 .venv\Scripts\activate
 streamlit run app.py
@@ -81,7 +86,9 @@ NEU-DET/
 ├─ reports/
 │  ├─ experiment/              # 四组指标、QC、校验
 │  ├─ crazing_manual_review/   # 47 行复核
-│  └─ materials/               # 参赛材料包
+│  └─ materials/
+│     ├─ platform/             # 纯浏览器检测平台（ONNX + ORT Web）
+│     └─ ...                   # 参赛材料包
 ├─ app.py  platform_core.py
 ├─ app_pages/{workbench,history,compare}.py
 └─ scripts/                    # 生成、审计、截图、冒烟脚本
