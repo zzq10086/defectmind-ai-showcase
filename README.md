@@ -113,6 +113,12 @@ NEU-DET/
 
 ## 材料与复检
 
+- 提交材料索引：`reports/materials/submission/比赛材料自检清单.md`
+- AI 协作日志：`reports/materials/submission/AI协作日志.md`（DOCX/PDF 同目录）
+- 部署说明：`reports/materials/submission/部署说明.md`
+- 5/10/30 分钟演示答辩方案：`reports/materials/submission/`
+- 完整源码包：`reports/materials/submission/DefectMind_AI_完整源码.zip`
+- 演示数据包：`reports/materials/submission/DefectMind_AI_演示数据.zip`
 - 交付清单：`reports/materials/00_inventory.md`
 - 展示页：`reports/materials/showcase.html`（离线可开，含 PPT / DOCX / PDF 下载）
 - 答辩 PPT：`reports/materials/DefectMind_AI_答辩PPT.pptx`（12 页）

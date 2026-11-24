@@ -789,9 +789,9 @@
       </div>
       <div class="platform-copy" data-reveal>
         <div class="feature"><div class="idx">01</div><div><h3>检测工作台</h3><p>上传 → 调 conf/iou → 检测 → 原图/结果并排 → 明细表与类别分布 → 保存记录。</p></div></div>
-        <div class="feature"><div class="idx">02</div><div><h3>历史记录</h3><p>SQLite 落库，保留原图、标注图、检测 JSON 与参数，可回看、导出 CSV、删除。</p></div></div>
+        <div class="feature"><div class="idx">02</div><div><h3>历史记录</h3><p>浏览器 IndexedDB 本地存储，保留原图、标注图、检测 JSON 与参数，可回看、导出 CSV、删除。</p></div></div>
         <div class="feature"><div class="idx">03</div><div><h3>实验对比</h3><p>A/B/C/D 指标表、六类 AP 对照、三档评估口径切换；文件缺失时显示“实验尚未完成”，绝不画占位数据。</p></div></div>
-        <div class="feature"><div class="idx">04</div><div><h3>工程保证</h3><p>18/18 冒烟通过，最大坐标偏差 0.00px；CPU 冷启动需预热，预热后单张约 25 ms。</p></div></div>
+        <div class="feature"><div class="idx">04</div><div><h3>工程保证</h3><p>18/18 冒烟通过，最大坐标偏差 0.00px；公网浏览器版单张推理约 54–57 ms（首次需下载约 11 MB 模型）。</p></div></div>
       </div>
     </div>
   </div>
@@ -837,12 +837,15 @@
       <a href="DefectMind_AI_答辩PPT.pptx" download>答辩 PPT（12 页）</a>
       <a href="DefectMind_AI_项目说明书.docx" download>项目说明书（12 页）</a>
       <a href="DefectMind_AI_项目说明书.pdf" download>说明书 PDF（只读）</a>
+      <a href="submission/AI协作日志.pdf" download>AI 协作日志</a>
+      <a href="submission/部署说明.pdf" download>部署说明</a>
+      <a href="submission/演示数据说明.pdf" download>演示数据说明</a>
       <a href="exp_table.md">实验数据表</a>
       <a href="README.md">项目说明</a>
     </div>
     <div class="foot-stack">
       <b>TECH STACK</b>
-      NEU-DET · YOLO26n<br>SD1.5 Inpainting · Streamlit
+        NEU-DET · YOLO26n<br>SD1.5 Inpainting · ONNX Web
     </div>
   </div>
 </footer>
