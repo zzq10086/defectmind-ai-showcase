@@ -501,9 +501,11 @@
       <div class="boot-logo">DM</div>
       <div class="boot-kicker">LOCAL INFERENCE ENGINE</div>
       <h2>正在装载检测模型</h2>
-      <p id="bootText">首次访问需下载约 11 MB 的 ONNX 权重，之后浏览器会缓存。</p>
+      <p id="bootText">首次访问需下载约 22 MB 推理资源（模型 11 MB + 引擎 11 MB），之后会缓存到浏览器。</p>
       <div class="boot-progress"><i id="bootProgress"></i></div>
-      <div class="boot-meta"><span id="bootPercent">0%</span><span id="bootDetail">准备运行时</span></div>
+      <div class="boot-meta"><span id="bootPercent">0%</span><span id="bootDetail">准备运行时</span><span id="bootElapsed">0s</span></div>
+      <p class="boot-hint" id="bootHint">首次加载受网络影响，通常需要 10–30 秒；请先关闭重复打开的质检平台标签页。</p>
+      <button class="boot-retry hidden" id="bootRetry" type="button" title="重新加载模型与页面">重新加载</button>
     </div>
   </div>
 
@@ -521,6 +523,6 @@
 
   <script src="vendor/ort.min.js?v=2"></script>
   <script src="data/experiment.js?v=2"></script>
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

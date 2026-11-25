@@ -2831,10 +2831,54 @@ input[type="range"]::-moz-range-thumb {
 .boot-meta {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   margin-top: 7px;
   color: var(--faint);
   font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 7.5px;
+  font-size: 9px;
+}
+
+.boot-meta span:nth-child(2) {
+  flex: 1;
+  text-align: center;
+}
+
+.boot-meta span:last-child {
+  min-width: 26px;
+  text-align: right;
+}
+
+.boot-hint {
+  margin-top: 12px;
+  color: var(--faint);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.boot-retry {
+  margin-top: 14px;
+  padding: 7px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: rgba(94, 106, 210, 0.12);
+  color: var(--accent-soft);
+  font-size: 11px;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.boot-retry:hover {
+  border-color: var(--accent);
+  background: rgba(94, 106, 210, 0.2);
+}
+
+.boot-retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.boot-retry.hidden {
+  display: none;
 }
 
 .toast {

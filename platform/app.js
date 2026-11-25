@@ -23,6 +23,8 @@
   const DB_REPORT_STORE = "quality_reports";
   const DB_VERSION = 3;
   const MAX_BATCH_RECORDS = 20;
+  const MODEL_CACHE = "defectmind-model-v1";
+  const BOOT_STALL_MS = 45000;
 
   const CLASS_META = {
     crazing: {
@@ -218,6 +220,9 @@
     bootPercent: $("#bootPercent"),
     bootDetail: $("#bootDetail"),
     bootText: $("#bootText"),
+    bootElapsed: $("#bootElapsed"),
+    bootHint: $("#bootHint"),
+    bootRetry: $("#bootRetry"),
     modelDot: $("#modelDot"),
     modelState: $("#modelState"),
     modelMeta: $("#modelMeta"),
@@ -364,45 +369,92 @@
   }
 
   async function fetchModelWithProgress(url) {
-    const response = await fetch(url, { cache: "force-cache" });
-    if (!response.ok) throw new Error(`模型下载失败：HTTP ${response.status}`);
-    const total = Number(response.headers.get("content-length")) || 11200000;
-    if (!response.body || !response.body.getReader) {
-      const buffer = await response.arrayBuffer();
+    const absolute = new URL(url, window.location.href).href;
+    const request = new Request(absolute);
+    let cache = null;
+    try {
+      cache = "caches" in window ? await caches.open(MODEL_CACHE) : null;
+      const cached = cache ? await cache.match(request) : null;
+      if (cached) {
+        updateBoot(60, "已从本地缓存读取", "正在装载检测模型");
+        return cached.arrayBuffer();
+      }
+    } catch (error) {
+      console.warn("模型缓存不可用，继续网络加载", error);
+    }
+
+    const controller = new AbortController();
+    let stallTimer = null;
+    const armStallTimer = () => {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => controller.abort(), BOOT_STALL_MS);
+    };
+    try {
+      armStallTimer();
+      const response = await fetch(request, { cache: "force-cache", signal: controller.signal });
+      if (!response.ok) throw new Error(`模型下载失败：HTTP ${response.status}`);
+      const total = Number(response.headers.get("content-length")) || 11200000;
+      if (!response.body || !response.body.getReader) {
+        const buffer = await response.arrayBuffer();
+        updateBoot(62, "权重已下载", "正在初始化 WASM 推理引擎…");
+        if (cache) cache.put(request, new Response(buffer)).catch(() => {});
+        return buffer;
+      }
+      const reader = response.body.getReader();
+      const chunks = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        armStallTimer();
+        chunks.push(value);
+        received += value.length;
+        const pct = 8 + Math.min(1, received / total) * 48;
+        updateBoot(pct, `${(received / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`);
+      }
+      clearTimeout(stallTimer);
+      const merged = new Uint8Array(received);
+      let offset = 0;
+      for (const chunk of chunks) {
+        merged.set(chunk, offset);
+        offset += chunk.length;
+      }
+      if (cache) {
+        cache
+          .put(request, new Response(merged, { headers: { "Content-Type": "application/octet-stream" } }))
+          .catch((error) => console.warn("模型写入缓存失败", error));
+      }
       updateBoot(62, "权重已下载", "正在初始化 WASM 推理引擎…");
-      return buffer;
+      return merged.buffer;
+    } catch (error) {
+      if (error && error.name === "AbortError") {
+        throw new Error("模型下载超时：网络长时间没有响应，请关闭重复标签页后重试");
+      }
+      throw error;
+    } finally {
+      clearTimeout(stallTimer);
     }
-    const reader = response.body.getReader();
-    const chunks = [];
-    let received = 0;
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      chunks.push(value);
-      received += value.length;
-      const pct = 8 + (received / total) * 48;
-      updateBoot(pct, `${(received / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`);
-    }
-    const merged = new Uint8Array(received);
-    let offset = 0;
-    for (const chunk of chunks) {
-      merged.set(chunk, offset);
-      offset += chunk.length;
-    }
-    updateBoot(62, "权重已下载", "正在初始化 WASM 推理引擎…");
-    return merged.buffer;
   }
 
   async function initModel() {
     if (state.modelLoading || state.modelReady) return;
     state.modelLoading = true;
+    const startedAt = Date.now();
+    const timer = setInterval(() => {
+      const seconds = Math.round((Date.now() - startedAt) / 1000);
+      els.bootElapsed.textContent = `${seconds}s`;
+      if (seconds >= 20 && !state.modelReady) {
+        els.bootHint.textContent = "网络较慢，仍在下载推理资源；可以先关闭重复打开的标签页，或稍后重试。";
+      }
+    }, 1000);
     try {
       if (!window.ort) throw new Error("ONNX Runtime 未加载");
       ort.env.wasm.wasmPaths = new URL("vendor/", window.location.href).href;
       ort.env.wasm.numThreads = 1;
       ort.env.wasm.proxy = false;
       ort.env.logLevel = "error";
-      updateBoot(5, "连接本地模型", "正在装载检测模型");
+      els.bootRetry.classList.add("hidden");
+      updateBoot(5, "连接模型资源", "正在装载检测模型");
       setModelStatus("", "模型加载中", "YOLO26n · ONNX · 320px");
 
       const buffer = await fetchModelWithProgress(MODEL_URL);
@@ -422,14 +474,19 @@
       updateBoot(100, "模型已就绪", "正在载入示例图像");
       setModelStatus("ready", "模型已就绪", "YOLO26n · ONNX · 320px");
       els.runButton.disabled = false;
+      clearInterval(timer);
+      els.bootElapsed.textContent = `${Math.round((Date.now() - startedAt) / 1000)}s`;
       setTimeout(hideBoot, 300);
       loadSample("crazing_101.jpg", true);
     } catch (error) {
+      clearInterval(timer);
       state.modelLoading = false;
       console.error(error);
       updateBoot(100, "加载失败", "无法启动浏览器推理");
       setModelStatus("error", "模型加载失败", String(error.message || error));
       els.bootDetail.textContent = String(error.message || error);
+      els.bootHint.textContent = "若多次重试仍失败，请检查网络后刷新；本地演示可运行 start_platform.bat。";
+      els.bootRetry.classList.remove("hidden");
       showToast(`模型加载失败：${error.message || error}`, "error");
     }
   }
@@ -2756,6 +2813,7 @@
     els.dropzone.addEventListener("drop", (event) => {
       handleFile(event.dataTransfer.files && event.dataTransfer.files[0]);
     });
+    els.bootRetry.addEventListener("click", () => window.location.reload());
     els.confRange.addEventListener("input", () => {
       state.conf = Number(els.confRange.value);
       updateParamLabels();
