@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08090a">
-  <meta name="description" content="DefectMind AI 工业表面缺陷检测平台：浏览器本地推理，图片不上传，支持检测、历史记录与实验对比。">
-  <title>DefectMind AI · 检测平台</title>
+  <meta name="description" content="DefectMind AI 工业表面缺陷质检平台：浏览器本地推理，支持风险结论、复核处置、质检报告与模型实验追溯。">
+  <title>DefectMind AI · 质检平台</title>
   <link rel="icon" type="image/png" href="../favicon.png">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true">
@@ -22,6 +22,12 @@
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-5"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><path d="M7 17H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-3"/><path d="M7 14h10v7H7z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5"/><path d="M12 17.5v.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h10l-1.5 4L15 13H5"/></symbol>
+    <symbol id="i-review" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="m9 15 2 2 4-4"/></symbol>
   </svg>
 
   <div class="app-shell">
@@ -33,13 +39,16 @@
 
       <nav class="side-nav" aria-label="平台导航">
         <button class="nav-item active" data-view="workbench">
-          <svg><use href="#i-search"/></svg><span>检测工作台</span><kbd>1</kbd>
+          <svg><use href="#i-search"/></svg><span>质检工作台</span><kbd>1</kbd>
         </button>
         <button class="nav-item" data-view="history">
-          <svg><use href="#i-history"/></svg><span>历史记录</span><kbd>2</kbd>
+          <svg><use href="#i-history"/></svg><span>质检记录</span><kbd>2</kbd>
         </button>
-        <button class="nav-item" data-view="compare">
-          <svg><use href="#i-chart"/></svg><span>实验对比</span><kbd>3</kbd>
+        <button class="nav-item" data-view="reports">
+          <svg><use href="#i-report"/></svg><span>质检报告</span><kbd>3</kbd>
+        </button>
+        <button class="nav-item nav-item-muted" data-view="compare">
+          <svg><use href="#i-chart"/></svg><span>模型实验</span><kbd>4</kbd>
         </button>
       </nav>
 
@@ -66,14 +75,14 @@
       </div>
 
       <div class="side-footer">
-        <span>v2.1 · NEU-DET</span>
+        <span>v2.3 · NEU-DET</span>
         <a href="../">项目主页 <svg><use href="#i-arrow"/></svg></a>
       </div>
     </aside>
 
     <main class="main">
       <header class="topbar">
-        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageName">检测工作台</strong></div>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageName">质检工作台</strong></div>
         <div class="top-actions">
           <span class="top-chip"><svg><use href="#i-shield"/></svg>隐私模式</span>
           <a class="top-link" href="../">返回项目主页</a>
@@ -82,11 +91,11 @@
 
       <div class="content">
         <section class="view active" id="view-workbench">
-          <div class="page-head">
+          <div class="page-head workbench-head">
             <div>
               <div class="kicker"><i></i>INSPECTION WORKBENCH</div>
-              <h1>检测工作台</h1>
-              <p>上传钢材表面图像，在浏览器内完成缺陷定位、置信度筛选与结果留存。</p>
+              <h1>质检工作台</h1>
+              <p>上传钢材表面图像，在浏览器内完成缺陷定位、风险判定、复核处置与结果留存。</p>
             </div>
             <div class="head-pills">
               <span class="pill"><i></i>6 类缺陷</span>
@@ -102,7 +111,7 @@
                   <div><span class="panel-kicker">INPUT</span><h2>输入图像</h2></div>
                   <span class="panel-meta">JPG / PNG</span>
                 </div>
-                <label class="dropzone" id="dropzone">
+                <label class="dropzone dropzone-compact" id="dropzone">
                   <input type="file" id="fileInput" accept="image/*" hidden>
                   <span class="drop-icon"><svg><use href="#i-upload"/></svg></span>
                   <strong>拖入图像，或点击选择</strong>
@@ -115,36 +124,37 @@
                 </div>
                 <div class="sample-grid" id="sampleGrid"></div>
 
-                <div class="divider"></div>
-
-                <div class="parameter-head">
-                  <div><span class="panel-kicker">PARAMETERS</span><h3>推理参数</h3></div>
-                  <button class="text-button" id="resetParams">恢复默认</button>
-                </div>
-
-                <label class="range-row">
-                  <span><b>置信度阈值</b><em>conf</em></span>
-                  <output id="confValue">0.25</output>
-                  <input type="range" id="confRange" min="0.05" max="0.90" step="0.01" value="0.25">
-                  <small>低于该分数的候选框不会显示</small>
-                </label>
-
-                <label class="range-row">
-                  <span><b>NMS IoU</b><em>iou</em></span>
-                  <output id="iouValue">0.45</output>
-                  <input type="range" id="iouRange" min="0.10" max="0.90" step="0.01" value="0.45">
-                  <small>越低，重叠框抑制越强</small>
-                </label>
-
-                <button class="primary-button" id="runButton" disabled>
+                <button class="primary-button run-button" id="runButton" disabled>
                   <svg><use href="#i-search"/></svg>
-                  <span>开始检测</span>
+                  <span>开始质检</span>
                   <kbd>↵</kbd>
                 </button>
-                <button class="secondary-button" id="saveButton" disabled>
-                  <svg><use href="#i-save"/></svg>
-                  保存到历史
-                </button>
+
+                <details class="advanced-params" id="advancedParams">
+                  <summary>
+                    <span>推理参数</span>
+                    <em id="paramSummary">conf 0.25 · iou 0.45</em>
+                  </summary>
+                  <div class="advanced-body">
+                    <div class="parameter-head">
+                      <span class="panel-kicker">ADVANCED</span>
+                      <button class="text-button" id="resetParams">恢复默认</button>
+                    </div>
+                    <label class="range-row">
+                      <span><b>置信度阈值</b><em>conf</em></span>
+                      <output id="confValue">0.25</output>
+                      <input type="range" id="confRange" min="0.05" max="0.90" step="0.01" value="0.25">
+                      <small>低于该分数的候选框不会显示</small>
+                    </label>
+                    <label class="range-row">
+                      <span><b>NMS IoU</b><em>iou</em></span>
+                      <output id="iouValue">0.45</output>
+                      <input type="range" id="iouRange" min="0.10" max="0.90" step="0.01" value="0.45">
+                      <small>越低，重叠框抑制越强</small>
+                    </label>
+                    <p class="advanced-note">修改参数会按同一权重自动复跑；类别映射、坐标换算与后处理保持不变。</p>
+                  </div>
+                </details>
 
                 <div class="privacy-note">
                   <svg><use href="#i-shield"/></svg>
@@ -156,16 +166,52 @@
             <div class="result-column">
               <section class="panel viewer-panel">
                 <div class="panel-head viewer-head">
-                  <div><span class="panel-kicker">RESULT</span><h2>检测结果</h2></div>
+                  <div><span class="panel-kicker">INSPECTION VERDICT</span><h2>本次质检结论</h2></div>
                   <div class="viewer-meta">
                     <span id="imageMeta">等待输入</span>
                     <span class="timing" id="timingBadge">—</span>
                   </div>
                 </div>
 
+                <div class="verdict" id="outcomePanel" data-risk="none" aria-live="polite">
+                  <div class="verdict-main">
+                    <div class="verdict-level">
+                      <span class="risk-badge" id="outcomeRisk">等待质检</span>
+                      <div class="verdict-score">
+                        <strong id="verdictScore">—</strong>
+                        <small>风险分 / 100</small>
+                      </div>
+                    </div>
+                    <div class="verdict-copy">
+                      <p class="verdict-action" id="outcomeSummary">选择或上传一张钢材表面图像，开始质检后这里会给出风险结论与处置建议。</p>
+                      <div class="verdict-facts">
+                        <span><em>主要缺陷</em><b id="verdictMainDefect">—</b></span>
+                        <span><em>最大单框面积</em><b id="verdictMaxBox">—</b></span>
+                        <span><em>总缺陷覆盖</em><b id="verdictCoverage">—</b></span>
+                        <span><em>平均置信度</em><b id="verdictConfidence">—</b></span>
+                      </div>
+                    </div>
+                    <span class="review-badge pending" id="verdictReview">待复核</span>
+                  </div>
+                  <div class="verdict-actions" aria-label="结论与处置">
+                    <button type="button" id="outcomeSave" disabled title="保存当前质检记录到本地">保存记录</button>
+                    <button type="button" id="reviewConfirm" disabled title="确认当前缺陷判定">确认缺陷</button>
+                    <button type="button" id="reviewFalse" disabled title="标记为误检，检测框保留可追溯">标记误检</button>
+                    <button type="button" id="reviewDispose" disabled title="记录放行、返修、报废或隔离结果">记录处置</button>
+                    <button type="button" id="outcomeReport" disabled title="生成当前图片的质检报告">生成报告</button>
+                    <button type="button" id="outcomeBatch" disabled title="将当前记录加入批次汇总">批次汇总</button>
+                  </div>
+                  <details class="verdict-basis" id="verdictBasis">
+                    <summary>判定依据</summary>
+                    <div class="verdict-basis-body" id="verdictBasisBody">
+                      完成质检后显示风险评分组成：类别权重、最大单框面积、总缺陷覆盖、缺陷数量与模型可靠性提示。
+                    </div>
+                  </details>
+                </div>
+
                 <div class="empty-viewer" id="emptyViewer">
                   <div class="empty-mark"><svg><use href="#i-eye"/></svg></div>
-                  <h3>加载一张图像开始检测</h3>
+                  <h3>加载一张图像开始质检</h3>
                   <p>也可以直接选择左侧示例。默认会载入龟裂样本并自动推理。</p>
                 </div>
 
@@ -175,7 +221,7 @@
                     <div class="image-stage"><img id="originalImage" alt="待检测原图"></div>
                   </figure>
                   <figure class="image-pane">
-                    <figcaption><span>检测结果</span><em id="detectedCount">—</em></figcaption>
+                    <figcaption><span>标注结果</span><em id="detectedCount">—</em></figcaption>
                     <div class="image-stage"><canvas id="resultCanvas" aria-label="带检测框的结果图"></canvas></div>
                   </figure>
                 </div>
@@ -183,24 +229,24 @@
 
               <div class="metric-strip">
                 <div class="metric-card">
-                  <span>检出目标</span>
+                  <span>缺陷总数</span>
                   <strong id="metricCount">0</strong>
-                  <small id="metricCountHint">个候选框</small>
+                  <small id="metricCountHint">个检出框</small>
                 </div>
                 <div class="metric-card">
-                  <span>类别数</span>
-                  <strong id="metricClasses">0</strong>
-                  <small>种缺陷</small>
+                  <span>主要缺陷</span>
+                  <strong id="metricMain">—</strong>
+                  <small id="metricMainHint">类别 / 数量</small>
                 </div>
                 <div class="metric-card">
-                  <span>平均置信度</span>
-                  <strong id="metricConfidence">—</strong>
-                  <small>0–1</small>
+                  <span>图像级风险</span>
+                  <strong id="metricRisk" data-risk="none">—</strong>
+                  <small id="metricRiskHint">0–100 分</small>
                 </div>
                 <div class="metric-card">
-                  <span>推理耗时</span>
+                  <span>处理耗时</span>
                   <strong id="metricTiming">—</strong>
-                  <small>端到端</small>
+                  <small>浏览器端到端</small>
                 </div>
               </div>
 
@@ -212,14 +258,20 @@
                       <svg><use href="#i-download"/></svg>
                     </button>
                   </div>
+                  <div class="detection-detail-meta">
+                    <span>类别数 <b id="metricClasses">0</b></span>
+                    <span>平均置信度 <b id="metricConfidence">—</b></span>
+                    <span>参数 <b id="detailParams">conf 0.25 · iou 0.45 · 320px</b></span>
+                  </div>
                   <div class="table-wrap">
                     <table class="detection-table">
-                      <thead><tr><th>#</th><th>类别</th><th>置信度</th><th>位置 x1, y1, x2, y2</th></tr></thead>
+                      <thead><tr><th>#</th><th>类别</th><th>置信度</th><th>面积占比</th><th>位置 x1, y1, x2, y2</th></tr></thead>
                       <tbody id="detectionRows">
-                        <tr class="placeholder-row"><td colspan="4">还没有检测结果</td></tr>
+                        <tr class="placeholder-row"><td colspan="5">还没有检测结果</td></tr>
                       </tbody>
                     </table>
                   </div>
+                  <p class="detection-note">平均置信度只用于提示模型可靠性，不单独决定质量严重度。</p>
                 </section>
 
                 <section class="panel distribution-panel">
@@ -239,10 +291,13 @@
           <div class="page-head">
             <div>
               <div class="kicker"><i></i>LOCAL RECORDS</div>
-              <h1>历史记录</h1>
-              <p>记录保存在当前浏览器的 IndexedDB 中。可回看检测框、参数与结果，也可导出 CSV。</p>
+              <h1>质检记录</h1>
+              <p>记录保存在当前浏览器的 IndexedDB 中。可回看检测框、风险结论与复核处置状态，也可导出 CSV。</p>
             </div>
             <div class="head-actions">
+              <button class="secondary-button small" id="historyBatchReport" disabled>
+                <svg><use href="#i-report"/></svg>批次报告
+              </button>
               <button class="secondary-button small" id="exportHistory">
                 <svg><use href="#i-download"/></svg>导出 CSV
               </button>
@@ -256,14 +311,106 @@
               <svg><use href="#i-search"/></svg>
               <input type="search" id="historySearch" placeholder="搜索文件名或缺陷类别…">
             </div>
+            <div class="history-filters" id="historyFilters" role="group" aria-label="复核状态筛选">
+              <button class="active" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button type="button" data-filter="pending" aria-pressed="false">待复核</button>
+              <button type="button" data-filter="confirmed" aria-pressed="false">已确认</button>
+              <button type="button" data-filter="false_positive" aria-pressed="false">误检</button>
+              <button type="button" data-filter="closed" aria-pressed="false">已处置</button>
+            </div>
             <div class="history-count" id="historyCount">0 条记录</div>
           </div>
           <div class="history-list" id="historyList"></div>
           <div class="empty-history hidden" id="emptyHistory">
             <div class="empty-mark"><svg><use href="#i-history"/></svg></div>
-            <h3>还没有保存过记录</h3>
-            <p>在检测工作台完成一次检测，然后点击“保存到历史”。</p>
-            <button class="primary-button auto" data-jump="workbench"><span>去检测</span></button>
+            <h3>还没有保存过质检记录</h3>
+            <p>在质检工作台完成一次质检，然后点击“保存记录”。</p>
+            <button class="primary-button auto" data-jump="workbench"><span>去质检</span></button>
+          </div>
+        </section>
+
+        <section class="view" id="view-reports">
+          <div class="page-head">
+            <div>
+              <div class="kicker"><i></i>QUALITY REPORTS</div>
+              <h1>质检报告</h1>
+              <p>把质检结论、判定依据与复核处置整理为可归档、可打印的辅助报告。报告是生成时快照，生成后不随记录自动变化。</p>
+            </div>
+            <div class="head-actions">
+              <button class="secondary-button small" id="refreshReports">
+                <svg><use href="#i-history"/></svg>刷新归档
+              </button>
+            </div>
+          </div>
+
+          <div class="report-kpis" id="reportKpis"></div>
+
+          <div class="report-layout">
+            <section class="panel report-builder">
+              <div class="panel-head">
+                <div><span class="panel-kicker">NEW REPORT</span><h2>新建报告</h2></div>
+                <span class="panel-meta">浏览器本地生成</span>
+              </div>
+              <div class="report-builder-body">
+                <div class="segmented report-mode" id="reportMode" role="group" aria-label="报告类型">
+                  <button class="active" data-mode="single">单图报告</button>
+                  <button data-mode="batch">批次报告</button>
+                </div>
+
+                <div class="report-pane" id="singleReportPane">
+                  <label class="report-field">
+                    <span>报告来源</span>
+                    <select id="singleRecordSelect" class="report-select"></select>
+                  </label>
+                  <div class="report-source-preview" id="singleReportPreview"></div>
+                </div>
+
+                <div class="report-pane hidden" id="batchReportPane">
+                  <div class="section-row">
+                    <span>选择质检记录</span>
+                    <small id="batchSelectionCount">已选 0 条</small>
+                  </div>
+                  <div class="batch-toolbar">
+                    <button class="text-button" type="button" id="selectRecentRecords">选最近 5 条</button>
+                    <button class="text-button" type="button" id="selectAllRecords">全选</button>
+                    <button class="text-button" type="button" id="clearSelectedRecords">清空</button>
+                  </div>
+                  <div class="batch-record-list" id="batchRecordList"></div>
+                  <div class="report-batch-summary" id="batchReportPreview"></div>
+                </div>
+
+                <label class="report-field">
+                  <span>报告名称 <em>可选</em></span>
+                  <input id="reportTitle" type="text" maxlength="80" placeholder="留空则使用默认名称">
+                </label>
+                <label class="report-field">
+                  <span>批次 / 工单号 <em>可选</em></span>
+                  <input id="reportJobId" type="text" maxlength="40" placeholder="例如：BATCH-20261125-01">
+                </label>
+
+                <button class="primary-button" id="createReportButton" disabled>
+                  <svg><use href="#i-report"/></svg>
+                  <span>生成并归档报告</span>
+                </button>
+                <p class="report-builder-note">
+                  报告是图像级辅助判定，不替代人工质检。风险分由类别权重、最大单框面积、总缺陷覆盖、缺陷数量与覆盖密度按固定规则计算；平均置信度只用于可靠性提示，可在报告中追溯。
+                </p>
+              </div>
+            </section>
+
+            <section class="panel report-archive">
+              <div class="panel-head">
+                <div><span class="panel-kicker">ARCHIVE</span><h2>报告归档</h2></div>
+                <span class="panel-meta" id="reportCount">0 份</span>
+              </div>
+              <div class="report-list" id="reportList"></div>
+              <div class="empty-reports hidden" id="emptyReports">
+                <div class="empty-mark"><svg><use href="#i-report"/></svg></div>
+                <h3>还没有生成报告</h3>
+                <p>质检一张图片后生成单图报告，或在左侧勾选多条质检记录生成批次报告。</p>
+                <button class="primary-button auto" data-jump="workbench"><span>前往质检工作台</span></button>
+              </div>
+            </section>
           </div>
         </section>
 
@@ -271,7 +418,7 @@
           <div class="page-head">
             <div>
               <div class="kicker"><i></i>AUDITABLE EXPERIMENTS</div>
-              <h1>实验对比</h1>
+              <h1>模型实验</h1>
               <p>A/B/C/D 四组对照，12 次评估。数字直接来自冻结的 CSV，不在前端重算或美化。</p>
             </div>
             <div class="segmented" id="metricToggle" role="group" aria-label="评估口径">
@@ -365,7 +512,7 @@
   <div class="modal-backdrop" id="modal">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <div><span class="panel-kicker">RECORD</span><h2 id="modalTitle">检测记录</h2></div>
+        <div><span class="panel-kicker" id="modalKicker">RECORD</span><h2 id="modalTitle">检测记录</h2></div>
         <button class="icon-button" id="modalClose" aria-label="关闭"><svg><use href="#i-close"/></svg></button>
       </div>
       <div class="modal-body" id="modalBody"></div>
@@ -374,6 +521,6 @@
 
   <script src="vendor/ort.min.js?v=2"></script>
   <script src="data/experiment.js?v=2"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

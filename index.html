@@ -556,7 +556,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#results">查看四组对照 →</a>
-          <a class="btn btn-ghost" href="#platform">了解检测平台</a>
+          <a class="btn btn-ghost" href="#platform">了解质检平台</a>
         </div>
         <div class="hero-meta">
           <div><b>1800</b>张 200×200 灰度图</div>
@@ -773,25 +773,26 @@
 <section class="platform" id="platform">
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <div class="section-label">06 / 检测平台</div>
-      <h2>从一张图，<br>到一条可追溯记录。</h2>
-      <p>检测工作台、历史记录、实验对比三页打通；平台与离线预测同权重、同参数、同后处理，冒烟测试 18/18 一致。</p>
+      <div class="section-label">06 / 质检平台</div>
+      <h2>从一张图，<br>到一条可复核的结论。</h2>
+      <p>质检工作台、质检记录、质检报告、模型实验四页打通；风险分、复核状态与处置结果可追溯到报告快照。平台与离线预测同权重、同参数、同后处理，冒烟测试 18/18 一致。</p>
     </div>
     <div class="platform-cta" data-reveal>
-      <a class="btn btn-primary" href="platform/" target="_blank" rel="noopener">打开在线检测平台 <span aria-hidden="true">↗</span></a>
-      <a class="btn btn-ghost" href="platform/#compare" target="_blank" rel="noopener">直接看实验对比 <span aria-hidden="true">↗</span></a>
+      <a class="btn btn-primary" href="platform/" target="_blank" rel="noopener">打开在线质检平台 <span aria-hidden="true">↗</span></a>
+      <a class="btn btn-ghost" href="platform/#compare" target="_blank" rel="noopener">直接看模型实验 <span aria-hidden="true">↗</span></a>
       <span class="cta-note"><b>永久公开地址</b> · 纯浏览器推理，免登录、图片不上传；首次加载约 11 MB 模型，之后走缓存。</span>
     </div>
     <div class="platform-grid">
       <div class="browser" data-reveal>
-        <div class="browser-bar"><i></i><i></i><i></i><span>DefectMind AI · 检测工作台</span></div>
-        <img src="showcase_assets/app_workbench.png" alt="DefectMind AI 检测工作台界面">
+        <div class="browser-bar"><i></i><i></i><i></i><span>DefectMind AI · 质检工作台</span></div>
+        <img src="showcase_assets/app_workbench.png" alt="DefectMind AI 质检工作台界面">
       </div>
       <div class="platform-copy" data-reveal>
-        <div class="feature"><div class="idx">01</div><div><h3>检测工作台</h3><p>上传 → 调 conf/iou → 检测 → 原图/结果并排 → 明细表与类别分布 → 保存记录。</p></div></div>
-        <div class="feature"><div class="idx">02</div><div><h3>历史记录</h3><p>浏览器 IndexedDB 本地存储，保留原图、标注图、检测 JSON 与参数，可回看、导出 CSV、删除。</p></div></div>
-        <div class="feature"><div class="idx">03</div><div><h3>实验对比</h3><p>A/B/C/D 指标表、六类 AP 对照、三档评估口径切换；文件缺失时显示“实验尚未完成”，绝不画占位数据。</p></div></div>
-        <div class="feature"><div class="idx">04</div><div><h3>工程保证</h3><p>18/18 冒烟通过，最大坐标偏差 0.00px；公网浏览器版单张推理约 54–57 ms（首次需下载约 11 MB 模型）。</p></div></div>
+        <div class="feature"><div class="idx">01</div><div><h3>质检工作台</h3><p>上传 → 开始质检 → 结果图上方直接给出风险等级、风险分与处置建议；判定依据可展开，高级参数折叠保留。</p></div></div>
+        <div class="feature"><div class="idx">02</div><div><h3>质检记录</h3><p>浏览器 IndexedDB 本地存储，新增待复核 / 已确认 / 误检 / 已处置状态、处置结果与状态筛选，可回看、导出 CSV。</p></div></div>
+        <div class="feature"><div class="idx">03</div><div><h3>质检报告</h3><p>单图与批次报告冻结生成时快照；单图带复核人与处置结果，批次带复核统计、待复核数与高风险占比，支持打印 PDF 与 CSV。</p></div></div>
+        <div class="feature"><div class="idx">04</div><div><h3>模型实验</h3><p>A/B/C/D 指标表、六类 AP 对照、三档评估口径切换；文件缺失时显示“实验尚未完成”，绝不画占位数据。</p></div></div>
+        <div class="feature"><div class="idx">05</div><div><h3>工程保证</h3><p>18/18 冒烟通过，最大坐标偏差 0.00px；公网浏览器版单张推理约 54–57 ms（首次需下载约 11 MB 模型）。</p></div></div>
       </div>
     </div>
   </div>
@@ -808,7 +809,7 @@
       <div class="deliver-list" data-reveal>
         <div class="deliver-item"><div class="check">✓</div><div><h3>可审计数据资产</h3><p>XML 权威重建、分层划分、跨 split MD5 泄漏 0；split_manifest.csv 记录每张图的 MD5、复核结论与处置动作。</p></div></div>
         <div class="deliver-item"><div class="check">✓</div><div><h3>可复现实验</h3><p>四组对照 + 12 次评估 + 校验文件；每个数字都能对到具体 JSON/CSV。</p></div></div>
-        <div class="deliver-item"><div class="check">✓</div><div><h3>可演示平台</h3><p>检测、记录、实验对比三页打通；线上线下一体，18/18 逐图一致。</p></div></div>
+        <div class="deliver-item"><div class="check">✓</div><div><h3>可演示平台</h3><p>质检、记录、报告、模型实验四页打通；风险评分可解释、复核处置可追溯，线上线下一体，18/18 逐图一致。</p></div></div>
         <div class="deliver-item"><div class="check">✓</div><div><h3>诚实的负结果</h3><p>扩散未带来可测增益，机制、边界与局限全部如实呈现，不美化、不改写。</p></div></div>
       </div>
       <aside class="limit-panel" data-reveal>
