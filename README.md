@@ -49,7 +49,7 @@
 - **质检平台**：公网版为四页质检闭环（质检工作台 / 质检记录 / 质检报告 / 模型实验），完成
   29/29 实机验收；免登录、无需服务器，图片只在本机浏览器推理，记录存入当前浏览器 IndexedDB。
   本地 Streamlit 版保留三页开发台；后处理同源冒烟 18/18 PASS，不等同于 ONNX 精度评测。
-- **参赛材料**：`reports/materials/`，含 12 页答辩 PPT、14 页项目说明书（DOCX + PDF）、
+- **参赛材料**：`reports/materials/`，含 12 页正文 + 1 页附录的答辩 PPT、14 页项目说明书（DOCX + PDF）、
   一页式展示页、路演讲稿、20 题问答、视频脚本与录屏清单。
 
 ## 快速开始
@@ -115,14 +115,15 @@ NEU-DET/
 
 - 提交材料索引：`reports/materials/submission/比赛材料自检清单.md`
 - AI 协作日志：`reports/materials/submission/AI协作日志.md`（DOCX/PDF 同目录）
+- PT/ONNX 一致性审计：`reports/materials/submission/PT-ONNX一致性审计日志.md`（DOCX/PDF 同目录）
 - 部署说明：`reports/materials/submission/部署说明.md`
 - 5/10/30 分钟演示答辩方案：`reports/materials/submission/`
 - 完整源码包：`reports/materials/submission/DefectMind_AI_完整源码.zip`
 - 演示数据包：`reports/materials/submission/DefectMind_AI_演示数据.zip`
 - 交付清单：`reports/materials/00_inventory.md`
 - 展示页：`reports/materials/showcase.html`（离线可开，含 PPT / DOCX / PDF 下载）
-- 答辩 PPT：`reports/materials/DefectMind_AI_答辩PPT.pptx`（12 页）
-- 项目说明书：`reports/materials/DefectMind_AI_项目说明书.docx`（12 页）
+- 答辩 PPT：`reports/materials/DefectMind_AI_答辩PPT.pptx`（12 页正文 + 1 页附录）
+- 项目说明书：`reports/materials/DefectMind_AI_项目说明书.docx`（14 页）
 - 只读 PDF：`reports/materials/DefectMind_AI_项目说明书.pdf`
 - 一键复检：`scripts/qa_materials.bat`（禁用词 / 数字 / 链接 / 页数）
 
