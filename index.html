@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
-<meta name="description" content="DefectMind AI：基于 AIGC 增强与多模态智能分析的工业表面缺陷检测平台。NEU-DET 小样本缺陷检测与扩散增强对照研究。">
+<meta name="description" content="DefectMind AI：NEU-DET 小样本钢材表面缺陷检测与扩散增强对照实验。四组同口径评估，在线质检平台可直接打开。">
 <title>DefectMind AI · 工业表面缺陷检测平台</title>
 <style>
   :root{
@@ -142,7 +142,10 @@
     font-size:clamp(44px,6.2vw,82px);font-weight:800;letter-spacing:-.045em;
     margin:22px 0 24px;
   }
-  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero h1 em{
+    display:inline-block;white-space:nowrap;
+    font-style:normal;color:var(--accent);
+  }
   .hero-lead{max-width:620px;font-size:17px;color:rgba(255,255,255,.72);line-height:1.8}
   .hero-lead strong{color:#fff;font-weight:600}
   .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
@@ -509,6 +512,556 @@
     .hero-meta b{font-size:16px}
   }
 </style>
+<style id="archive-theme">
+  /* v3 工业质检档案：纸张、钢灰、安全橙，去发光卡片与伪造浏览器 */
+  :root{
+    --ink:#181a17;
+    --ink-2:#242722;
+    --ink-3:#2e322c;
+    --paper:#f0ece3;
+    --paper-2:#f7f3ea;
+    --white:#fffdf7;
+    --steel:#747b75;
+    --steel-2:#a7aaa2;
+    --line:#d2c9ba;
+    --line-strong:#b6ab99;
+    --line-dark:rgba(240,236,227,.18);
+    --accent:#c95622;
+    --accent-2:#9f3f18;
+    --cyan:#7d8a83;
+    --good:#3d6954;
+    --text:#1d201c;
+    --muted:#62665e;
+    --radius:3px;
+    --shadow:none;
+    --max:1220px;
+    --font:"Segoe UI","Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;
+    --serif:"Source Han Serif SC","Noto Serif SC","Songti SC","SimSun",serif;
+    --mono:"Cascadia Mono","Consolas","SFMono-Regular",monospace;
+  }
+  ::selection{background:rgba(201,86,34,.22)}
+  body{
+    background:var(--paper);
+    color:var(--text);
+    background-image:radial-gradient(rgba(24,26,23,.035) .55px,transparent .55px);
+    background-size:5px 5px;
+  }
+  .wrap{max-width:var(--max);padding:0 32px}
+  h1,h2,h3{letter-spacing:-.025em}
+  h2{
+    font-family:var(--serif);
+    font-size:clamp(32px,4vw,49px);
+    font-weight:700;
+    line-height:1.12;
+  }
+  h3{font-size:18px}
+  p{color:var(--muted)}
+  .section-label{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    color:var(--accent);margin-bottom:14px;
+  }
+  .section-label::before{content:"";width:22px;height:1px;background:currentColor}
+  .num{font-variant-numeric:tabular-nums}
+
+  .progress{height:1px;background:var(--accent);box-shadow:none}
+  .site-head{
+    background:rgba(240,236,227,.95);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px);
+  }
+  .topline{
+    background:var(--paper-2);border-bottom:1px solid var(--line);
+    color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  }
+  .topline .wrap{height:32px}
+  .topline-left b{color:var(--ink);font-weight:600}
+  .topline-meta{color:#8c887e}
+  .topline a{color:var(--accent);font-weight:600}
+  .topline a:hover{color:var(--accent-2)}
+  .nav{
+    background:transparent;border-bottom:0;padding:14px 0;
+    backdrop-filter:none;
+  }
+  .brand{color:var(--ink);gap:11px}
+  .brand-mark{
+    width:34px;height:34px;border-radius:0;
+    background:var(--ink);color:var(--paper);
+    box-shadow:none;font-family:var(--mono);font-size:11px;letter-spacing:-.05em;
+  }
+  .brand-name{font-size:17px;font-weight:700}
+  .brand-name span{color:var(--accent)}
+  .nav-links{color:var(--muted);font-size:13px;gap:24px}
+  .nav-links a{padding:5px 0}
+  .nav-links a::after{bottom:-2px;height:2px;background:var(--accent)}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-chip{
+    border:1px solid var(--ink);border-radius:0;
+    background:transparent;color:var(--ink);
+    padding:7px 13px;font-family:var(--mono);font-size:10px;
+    backdrop-filter:none;
+  }
+  .nav-chip:hover{border-color:var(--accent);color:var(--accent)}
+
+  .hero{
+    min-height:0;padding:78px 0 54px;
+    color:var(--ink);background:transparent;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:url("showcase_assets/class_crazing.png") right 5% center/48% auto no-repeat;
+    opacity:.11;mix-blend-mode:multiply;
+    mask-image:linear-gradient(90deg,transparent 0%,#000 44%,#000 100%);
+  }
+  .hero::after{display:none}
+  .hero-grid{grid-template-columns:1.08fr .92fr;gap:62px}
+  .eyebrow{
+    color:var(--accent);font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.13em;font-weight:600;
+  }
+  .eyebrow::before{width:28px;opacity:1;background:var(--accent)}
+  .hero h1{
+    font-family:var(--serif);
+    font-size:clamp(50px,6vw,86px);
+    font-weight:700;line-height:1.03;letter-spacing:-.045em;
+    color:var(--ink);margin:22px 0 26px;
+  }
+  .hero h1 .hero-pre{
+    display:block;margin-bottom:17px;
+    font-family:var(--mono);font-size:10.5px;font-weight:600;
+    letter-spacing:.15em;color:var(--muted);
+  }
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero-lead{
+    max-width:610px;font-size:16.5px;line-height:1.85;color:#5e625a;
+  }
+  .hero-lead strong{color:var(--ink);font-weight:600}
+  .hero-actions{margin-top:30px}
+  .btn{
+    min-height:46px;padding:0 20px;border-radius:2px;
+    font-size:13px;font-weight:600;
+  }
+  .btn:hover{transform:none}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:none}
+  .btn-primary:hover{background:var(--accent-2)}
+  .btn-ghost{
+    border:1px solid var(--ink);color:var(--ink);background:transparent;
+  }
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .hero-meta{
+    gap:28px;margin-top:38px;padding-top:18px;
+    border-top:1px solid var(--line);
+    color:var(--muted);font-family:var(--mono);font-size:10px;
+  }
+  .hero-meta b{
+    display:block;color:var(--ink);font-family:var(--serif);
+    font-size:22px;font-weight:700;margin-bottom:2px;
+  }
+  .hero-plate{margin:0;position:relative}
+  .hero-plate-frame{
+    background:#171a17;border:1px solid #171a17;padding:12px;
+  }
+  .hero-plate-frame img{
+    width:100%;aspect-ratio:644/368;object-fit:cover;
+    filter:saturate(.92) contrast(1.04);
+  }
+  .hero-plate-cap{
+    display:flex;justify-content:space-between;gap:16px;
+    padding:11px 2px 0;font-family:var(--mono);
+    font-size:9px;letter-spacing:.05em;color:var(--muted);
+    text-transform:uppercase;
+  }
+  .hero-plate-note{
+    display:flex;gap:10px;align-items:baseline;
+    margin-top:13px;padding-top:11px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:11.5px;
+  }
+  .hero-plate-note b{
+    color:var(--accent);font-family:var(--mono);
+    font-size:9px;font-weight:600;letter-spacing:.1em;white-space:nowrap;
+  }
+
+  .metric-band{
+    margin-top:0;background:var(--paper-2);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .metric-card{
+    background:transparent;border:0;border-radius:0;box-shadow:none;
+    overflow:visible;
+  }
+  .metric{padding:18px 20px;border-right:1px solid var(--line)}
+  .metric:last-child{border-right:0}
+  .metric b{
+    display:block;font-family:var(--serif);
+    font-size:30px;font-weight:700;color:var(--ink);
+    line-height:1.1;letter-spacing:-.03em;
+  }
+  .metric span{display:block;margin-top:2px;font-size:11.5px;color:var(--ink)}
+  .metric small{
+    display:block;margin-top:3px;font-family:var(--mono);
+    font-size:9px;letter-spacing:.02em;color:var(--muted);
+  }
+
+  .problem,.detect,.results,.mechanism,.platform,.delivery{padding:84px 0}
+  .problem{background:var(--paper)}
+  .detect{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .aigc{background:#171a17;color:var(--paper);padding:84px 0}
+  .aigc::before{display:none}
+  .results{background:var(--paper)}
+  .mechanism{background:var(--paper-2);border-top:1px solid var(--line)}
+  .platform{background:var(--paper)}
+  .delivery{background:#171a17;color:var(--paper)}
+  .delivery::before{display:none}
+  .section-head{max-width:760px;margin-bottom:38px}
+  .section-head p{max-width:720px;font-size:14.5px;line-height:1.85}
+  .split{gap:54px}
+  .problem-copy p{font-size:14px;line-height:1.85;margin-top:15px}
+  .problem-copy h2{max-width:560px}
+  .review-panel{
+    background:var(--white);border:1px solid var(--line);
+    border-top:3px solid var(--accent);border-radius:0;
+    padding:26px 26px 22px;color:var(--ink);box-shadow:none;
+  }
+  .review-panel::after{display:none}
+  .review-top{border-bottom:1px solid var(--line);padding-bottom:16px}
+  .review-top b{
+    font-family:var(--serif);font-size:52px;font-weight:700;
+    line-height:1;color:var(--ink);
+  }
+  .review-top span{font-family:var(--mono);font-size:9.5px;color:var(--muted)}
+  .review-bars{gap:12px;margin-top:20px}
+  .review-row{
+    grid-template-columns:104px 1fr 30px;gap:10px;
+    font-size:10.5px;color:var(--muted);
+  }
+  .review-track{height:5px;border-radius:0;background:#e8e1d4}
+  .review-fill{border-radius:0;background:#35666b}
+  .review-fill.b{background:var(--accent)}
+  .review-fill.c{background:#756a84}
+  .review-fill.d{background:#85877f}
+  .review-note{
+    margin-top:20px;padding-top:13px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:9px;line-height:1.65;color:var(--muted);
+  }
+  .detect-grid{gap:26px}
+  .demo-panel{
+    background:#171a17;border:1px solid #171a17;
+    border-radius:0;box-shadow:none;
+  }
+  .demo-panel img{background:#171a17}
+  .demo-cap{
+    padding:11px 15px;background:#171a17;
+    color:rgba(240,236,227,.55);
+    border-top:1px solid rgba(240,236,227,.14);
+    font-family:var(--mono);font-size:9px;line-height:1.5;
+  }
+  .class-grid{gap:10px}
+  .class-card{
+    background:transparent;border:0;border-radius:0;overflow:visible;
+  }
+  .class-card img{
+    width:100%;aspect-ratio:1;object-fit:cover;
+    border:1px solid var(--line);filter:saturate(.94) contrast(1.03);
+  }
+  .class-card div{
+    padding:7px 0 8px;border-bottom:1px solid var(--line);
+    color:var(--ink);font-family:var(--mono);font-size:9px;line-height:1.4;
+  }
+  .aigc .section-head p,.aigc p{color:rgba(240,236,227,.62)}
+  .aigc h2,.aigc h3{color:var(--paper)}
+  .aigc .section-label{color:var(--accent)}
+  .compare-grid{gap:14px}
+  .compare-card{
+    background:#20231f;border:1px solid #3a4039;
+    border-radius:0;box-shadow:none;
+  }
+  .compare-card img{width:100%;aspect-ratio:1;object-fit:cover}
+  .compare-card .cap{
+    padding:11px 13px;background:#20231f;
+    border-top:1px solid #3a4039;
+  }
+  .compare-card .cap b{font-size:12px;color:var(--paper)}
+  .compare-card .cap span{
+    font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;
+    color:rgba(240,236,227,.43);
+  }
+  .compare-card.is-d{border-color:var(--accent)}
+  .pipeline{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    margin-top:26px;background:transparent;border:0;
+    border-top:1px solid #3a4039;border-bottom:1px solid #3a4039;
+    border-radius:0;
+  }
+  .pipe-step{
+    min-height:0;padding:14px 14px 16px;background:transparent;
+    border-right:1px solid #3a4039;
+  }
+  .pipe-step:last-child{border-right:0}
+  .pipe-step small{
+    font-family:var(--mono);font-size:8.5px;
+    letter-spacing:.1em;color:var(--accent);
+  }
+  .pipe-step b{
+    display:block;margin:6px 0 4px;
+    font-size:13.5px;color:var(--paper);
+  }
+  .pipe-step span{
+    display:block;font-size:10.5px;line-height:1.55;
+    color:rgba(240,236,227,.52);
+  }
+  .aigc-note{
+    margin-top:24px;padding:4px 0 4px 17px;
+    background:transparent;border:0;border-left:2px solid var(--accent);
+    border-radius:0;
+  }
+  .aigc-note b{
+    color:var(--accent);font-family:var(--mono);
+    font-size:9px;letter-spacing:.1em;
+  }
+  .aigc-note p{margin-top:3px;font-size:11.5px;line-height:1.7}
+  .result-layout{gap:24px}
+  .table-wrap{
+    background:var(--white);border:1px solid var(--line);
+    border-radius:0;box-shadow:none;
+  }
+  table{font-size:11.5px}
+  thead{background:#1d201c;color:var(--paper)}
+  th{
+    padding:12px 10px;font-family:var(--mono);
+    font-size:8.5px;font-weight:500;letter-spacing:.04em;
+  }
+  td{padding:12px 10px;border-bottom:1px solid var(--line)}
+  tbody tr:nth-child(even){background:#faf7ef}
+  td.arm span{
+    width:24px;height:24px;border-radius:0;
+    background:#e5ded0;color:var(--ink);
+    font-family:var(--mono);font-size:10px;
+  }
+  td.hi{color:var(--accent);font-weight:700}
+  .table-note{
+    padding:9px 12px;background:#f5f0e6;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:8.5px;line-height:1.6;color:var(--muted);
+  }
+  .chart-panel{
+    background:var(--paper-2);border:1px solid var(--line);
+    border-radius:0;box-shadow:none;padding:22px;
+  }
+  .chart-title h3{
+    font-family:var(--mono);font-size:10.5px;
+    font-weight:600;letter-spacing:.02em;
+  }
+  .chart-title span{font-family:var(--mono);font-size:8.5px;color:var(--muted)}
+  .bar-row{grid-template-columns:20px 1fr 48px;gap:10px;margin-bottom:13px}
+  .bar-track{height:8px;border-radius:0;background:#e3dbcd}
+  .bar-fill{border-radius:0;background:#3a666b}
+  .bar-fill.a{background:#3a666b}
+  .bar-fill.c{background:var(--accent)}
+  .bar-fill.d{background:#6d6675}
+  .bar-val{font-family:var(--mono);font-size:9.5px}
+  .chart-divider{border:0;border-top:1px solid var(--line);margin:18px 0}
+  .delta-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    margin-top:24px;background:var(--line);border:1px solid var(--line);
+  }
+  .delta{
+    padding:13px 15px;background:var(--paper-2);
+    border:0;border-radius:0;
+  }
+  .delta small{font-family:var(--mono);font-size:8.5px;color:var(--muted)}
+  .delta b{font-family:var(--serif);font-size:23px;font-weight:700}
+  .delta.up b{color:var(--good)}
+  .delta.down b,.delta.flat b{color:var(--accent)}
+  .conclusion{
+    display:grid;grid-template-columns:112px 1fr;gap:18px;
+    margin-top:24px;padding:21px 23px;
+    background:#1d201c;border:0;border-left:4px solid var(--accent);
+    border-radius:0;
+  }
+  .conclusion .mark{
+    font-family:var(--mono);font-size:8.5px;
+    letter-spacing:.12em;color:var(--accent);
+  }
+  .conclusion p{color:var(--paper);font-size:13px;line-height:1.75}
+  .conclusion strong{color:#fff}
+  .footnote{
+    margin-top:13px;font-family:var(--mono);
+    font-size:8.5px;line-height:1.6;color:var(--muted);
+  }
+  .reason-grid{gap:28px}
+  .reason{
+    background:transparent;border:0;border-top:2px solid var(--ink);
+    border-radius:0;padding:18px 0 0;box-shadow:none;
+  }
+  .reason::before{display:none}
+  .reason .big{
+    font-family:var(--serif);font-size:38px;
+    font-weight:700;line-height:1.05;color:var(--ink);
+  }
+  .reason .big small{
+    font-family:var(--mono);font-size:9px;font-weight:400;
+    letter-spacing:.04em;color:var(--muted);
+  }
+  .reason h3{margin:9px 0 7px;font-size:15.5px}
+  .reason p{font-size:12px;line-height:1.8}
+  .reason .tag{
+    display:inline-block;margin-top:10px;padding-top:7px;
+    border:0;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:8.5px;color:var(--muted);
+  }
+  .platform-cta{gap:12px;margin-bottom:28px;align-items:center}
+  .cta-note{
+    max-width:520px;font-family:var(--mono);
+    font-size:9px;line-height:1.65;color:var(--muted);
+  }
+  .cta-note b{color:var(--accent);font-weight:600}
+  .platform-grid{gap:30px}
+  .platform-shot{
+    margin:0;padding:10px;background:#171a17;border:1px solid #171a17;
+  }
+  .platform-shot img{width:100%;border:1px solid rgba(240,236,227,.14)}
+  .platform-shot figcaption{
+    display:flex;justify-content:space-between;gap:14px;
+    padding:8px 2px 0;font-family:var(--mono);
+    font-size:8.5px;color:rgba(240,236,227,.48);
+  }
+  .feature{
+    grid-template-columns:32px 1fr;gap:13px;
+    padding:15px 0;border-top:1px solid var(--line);
+  }
+  .feature .idx{
+    width:32px;height:32px;border-radius:0;
+    background:var(--ink);color:var(--paper);
+    font-family:var(--mono);font-size:8.5px;font-weight:500;
+  }
+  .feature h3{font-size:13.5px;margin-bottom:3px}
+  .feature p{font-size:11.5px;line-height:1.72}
+  .delivery .section-head p{color:rgba(240,236,227,.6)}
+  .delivery-grid{gap:44px}
+  .deliver-item{
+    grid-template-columns:24px 1fr;gap:12px;
+    padding:16px 0;border-top:1px solid rgba(240,236,227,.18);
+  }
+  .deliver-item .check{
+    width:22px;height:22px;border-radius:0;
+    background:transparent;border:1px solid rgba(240,236,227,.26);
+    color:var(--accent);font-size:10px;font-weight:600;
+  }
+  .deliver-item h3{color:var(--paper);font-size:14.5px}
+  .deliver-item p{color:rgba(240,236,227,.6);font-size:11.5px;line-height:1.75}
+  .limit-panel{
+    background:transparent;border:1px solid rgba(240,236,227,.24);
+    border-radius:0;padding:23px;
+  }
+  .limit-panel h3{color:var(--paper);font-size:14.5px}
+  .limit-panel li{
+    color:rgba(240,236,227,.66);font-size:11.5px;line-height:1.7;
+  }
+  .limit-panel li::before{
+    width:5px;height:5px;border-radius:0;
+    background:var(--accent);opacity:1;
+  }
+  .limit-panel .bottom{
+    border-top:1px solid rgba(240,236,227,.18);
+    color:rgba(240,236,227,.4);font-family:var(--mono);
+    font-size:8px;line-height:1.65;
+  }
+  footer{
+    background:#111310;color:rgba(240,236,227,.42);
+    border-top:1px solid #2c2f2a;padding:32px 0;
+  }
+  .foot-brand b{color:var(--paper);font-size:14px}
+  .foot-brand p{color:rgba(240,236,227,.55);font-size:11px;line-height:1.7}
+  .foot-brand .foot-source{
+    margin-top:10px;padding-left:9px;border-left:1px solid rgba(201,86,34,.7);
+    color:rgba(240,236,227,.46);font-size:10px;line-height:1.65;
+  }
+  .foot-brand span{font-family:var(--mono);font-size:8.5px;color:rgba(240,236,227,.35)}
+  .foot-links a{
+    color:rgba(240,236,227,.65);font-family:var(--mono);
+    font-size:9px;letter-spacing:.01em;
+  }
+  .foot-links a:hover{color:var(--accent)}
+  .foot-stack{color:rgba(240,236,227,.4);font-family:var(--mono);font-size:8.5px}
+  .foot-stack b{color:var(--accent);font-size:8.5px;letter-spacing:.08em}
+  .to-top{
+    background:var(--ink);border:1px solid rgba(255,255,255,.24);
+    border-radius:0;color:var(--paper);box-shadow:none;
+  }
+
+  @media (max-width:1100px){
+    .hero-grid{grid-template-columns:1fr;gap:34px}
+    .hero::before{background-size:cover;opacity:.06}
+    .metric-card{grid-template-columns:repeat(3,1fr)}
+    .metric:nth-child(3n){border-right:0}
+    .metric:nth-child(-n+3){border-bottom:1px solid var(--line)}
+    .platform-grid,.delivery-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 20px}
+    .topline .wrap{height:auto;min-height:30px;padding-top:5px;padding-bottom:5px;flex-wrap:wrap;gap:4px}
+    .topline-right{gap:9px;flex-wrap:wrap;font-size:9px}
+    .topline-meta{display:none}
+    .nav{padding:11px 0}
+    .nav .wrap{gap:12px;flex-wrap:wrap}
+    .nav-links{gap:14px;font-size:11.5px;order:3;width:100%;overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+    .nav-links::-webkit-scrollbar{display:none}
+    .nav-chip{font-size:9px;padding:6px 10px}
+    .hero{padding:52px 0 38px}
+    .hero h1{font-size:46px;line-height:1.05}
+    .hero h1 .hero-pre{font-size:9px}
+    .hero-lead{font-size:14px}
+    .hero-actions .btn{flex:1;min-width:140px}
+    .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .hero-plate-frame{padding:8px}
+    .problem,.detect,.results,.mechanism,.platform,.delivery,.aigc{padding:58px 0}
+    .section-head{margin-bottom:28px}
+    .section-head p{font-size:13px}
+    .split,.detect-grid,.result-layout{grid-template-columns:1fr}
+    .class-grid{grid-template-columns:1fr 1fr}
+    .compare-grid{grid-template-columns:1fr}
+    .pipeline{grid-template-columns:1fr}
+    .pipe-step{border-right:0;border-bottom:1px solid #3a4039}
+    .pipe-step:last-child{border-bottom:0}
+    .metric-card{grid-template-columns:1fr 1fr}
+    .metric{padding:13px 12px}
+    .metric:nth-child(2n){border-right:0}
+    .metric:nth-child(-n+4){border-bottom:1px solid var(--line)}
+    .metric b{font-size:24px}
+    .table-wrap{background:transparent;border:0;box-shadow:none;overflow:visible}
+    table,thead,tbody,tr,td,th{display:block;width:100%}
+    thead{display:none}
+    tbody tr{
+      background:var(--white);border:1px solid var(--line);
+      margin-bottom:8px;padding:8px 10px;
+    }
+    tbody td{
+      display:flex;justify-content:space-between;gap:16px;
+      border:0;padding:4px 0;font-size:11px;
+    }
+    tbody td::before{
+      content:attr(data-label);color:var(--muted);
+      font-family:var(--mono);font-size:8.5px;
+    }
+    td.arm span{margin-right:5px}
+    .table-note{background:var(--paper-2);border:1px solid var(--line);margin-top:4px}
+    .conclusion{grid-template-columns:1fr;gap:8px;padding:18px}
+    .reason-grid{grid-template-columns:1fr;gap:24px}
+    .platform-cta .btn{flex:1;min-width:150px}
+    .platform-cta{flex-wrap:wrap}
+    .cta-note{width:100%;max-width:none}
+    .foot-wrap{grid-template-columns:1fr;gap:24px}
+    .foot-stack{text-align:left;white-space:normal}
+    section[id]{scroll-margin-top:120px}
+  }
+  @media (max-width:480px){
+    .hero h1{font-size:39px}
+    .hero-meta{grid-template-columns:1fr 1fr}
+    .metric-card{grid-template-columns:1fr 1fr}
+    .class-grid{grid-template-columns:1fr 1fr}
+    .delta-grid{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
 
@@ -548,17 +1101,16 @@
 <header class="hero" id="top">
   <div class="wrap">
     <div class="hero-grid">
-      <div>
-        <span class="eyebrow">AIGC × 工业质检 · 赛道三</span>
-        <h1>让每一道缺陷，<br><em>都有据可查。</em></h1>
+      <div class="hero-copy">
+        <span class="eyebrow">NEU-DET / 小样本缺陷检测 · 赛道三</span>
+        <h1><span class="hero-pre">四组同口径对照之后</span>扩散增强，<em>没有赢。</em></h1>
         <p class="hero-lead">
-          基于 <strong>NEU-DET 热轧钢材表面缺陷数据集</strong>，用 YOLO26n 与 Stable Diffusion Inpainting，
-          严格回答一个工程真问题：<strong>在小样本条件下，AIGC 数据增强到底有没有用？</strong>
-          我们不修饰负结果，只交付可复现的证据。
+          基于 <strong>NEU-DET 热轧钢材表面缺陷数据集</strong>，用 YOLO26n 与 Stable Diffusion Inpainting
+          做四组严格对照。C−B = +0.0069，D−C = −0.0074；负结果原样保留，所有数字可追溯到 JSON。
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#results">查看四组对照 →</a>
-          <a class="btn btn-ghost" href="#platform">了解质检平台</a>
+          <a class="btn btn-primary" href="platform/" target="_blank" rel="noopener">打开在线质检平台 <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-ghost" href="#results">查看四组对照 →</a>
         </div>
         <div class="hero-meta">
           <div><b>1800</b>张 200×200 灰度图</div>
@@ -568,22 +1120,19 @@
         </div>
       </div>
 
-      <div class="scan-card" aria-label="检测结果示意">
-        <div class="scan-top">
-          <span class="dot live"></span><span class="dot"></span><span class="dot"></span>
-          <span class="scan-file">crazing_101.jpg · 200×200</span>
-          <span class="scan-live">LIVE</span>
+      <figure class="hero-plate">
+        <div class="hero-plate-frame">
+          <img src="showcase_assets/detection_demo.png" alt="NEU-DET 钢材表面龟裂缺陷检测前后对比">
         </div>
-        <div class="scan-media">
-          <img src="showcase_assets/detection_demo.png" alt="钢材表面龟裂缺陷检测前后对比">
-          <div class="scan-line"></div>
+        <figcaption class="hero-plate-cap">
+          <span>NEU-DET / 真实样本</span>
+          <span>crazing_101.jpg · 200×200</span>
+        </figcaption>
+        <div class="hero-plate-note">
+          <b>SAMPLE 01</b>
+          <span>左：原始钢材表面　右：YOLO26n 检测框（conf 0.40 / 0.34）</span>
         </div>
-        <div class="scan-bottom">
-          <div class="scan-stat"><b class="num">0.7626</b><small>mAP50 / test</small></div>
-          <div class="scan-stat"><b class="num">0.4327</b><small>mAP50-95</small></div>
-          <div class="scan-stat"><b class="num">29/29</b><small>闭环验收</small></div>
-        </div>
-      </div>
+      </figure>
     </div>
   </div>
 </header>
@@ -606,7 +1155,7 @@
     <div class="section-label">01 / 研究问题</div>
     <div class="split">
       <div class="problem-copy" data-reveal>
-        <h2>小样本，难在<br>看不见的裂纹。</h2>
+        <h2>先查数据，<br>再谈模型。</h2>
         <p>
           工业表面缺陷检测长期依赖人工目检。六类热轧缺陷中，龟裂（crazing）对比度低、形态细碎、边界不清，
           是最容易被漏检、也最难被模型稳定学到的一类。
@@ -643,7 +1192,7 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="section-label">02 / 检测能力</div>
-      <h2>六类缺陷，<br>一套统一口径。</h2>
+      <h2>六类缺陷，<br>一套后处理。</h2>
       <p>同一权重、同一阈值、同一后处理。离线评测与在线平台使用同一套推理参数，避免“演示一套、报告一套”。</p>
     </div>
     <div class="detect-grid">
@@ -667,7 +1216,7 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="section-label">03 / AIGC 方法</div>
-      <h2>程序化 mask + <span class="nowrap">扩散填充，</span><br>严格等量对照。</h2>
+      <h2>程序化 mask，<br>扩散只填 mask 内。</h2>
       <p>扩散方案不是“凭空生成一张图”，而是先在原图上程序化构造龟裂形态 mask，再由 SD1.5 Inpainting 在 mask 内填充纹理，最后按 mask 贴回。mask 外像素严格不变。</p>
     </div>
     <div class="compare-grid" data-reveal>
@@ -693,7 +1242,7 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="section-label">04 / 对照实验</div>
-      <h2>四个对照组，<br>回答一个问题。</h2>
+      <h2>四组对照，<br>一个负结果。</h2>
       <p>A 全量 / B 20% 原始 / C 20% + 程序化 40 / D 20% + 扩散 40。四组同模型、同超参、同 seed=42、同冻结测试集；C 与 D 增强张数严格相等。</p>
     </div>
 
@@ -776,7 +1325,7 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="section-label">06 / 质检平台</div>
-      <h2>从一张图，<br>到一条可复核的结论。</h2>
+      <h2>检测、复核、处置，<br>留痕到报告。</h2>
       <p>质检工作台、质检记录、质检报告、模型实验四页打通；风险分、复核状态与处置结果可追溯到报告快照。公网质检闭环完成 29/29 实机验收。</p>
     </div>
     <div class="platform-cta" data-reveal>
@@ -785,10 +1334,13 @@
       <span class="cta-note"><b>永久公开地址</b> · 纯浏览器推理，免登录、图片不上传；首次加载约 11 MB 模型，之后走缓存。</span>
     </div>
     <div class="platform-grid">
-      <div class="browser" data-reveal>
-        <div class="browser-bar"><i></i><i></i><i></i><span>DefectMind AI · 质检工作台</span></div>
+      <figure class="platform-shot" data-reveal>
         <img src="showcase_assets/app_workbench.png" alt="DefectMind AI 质检工作台界面">
-      </div>
+        <figcaption>
+          <span>质检工作台 · 1440×1200</span>
+          <span>公网版 / IndexedDB 本地记录</span>
+        </figcaption>
+      </figure>
       <div class="platform-copy" data-reveal>
         <div class="feature"><div class="idx">01</div><div><h3>质检工作台</h3><p>上传 → 开始质检 → 结果图上方直接给出风险等级、风险分与处置建议；判定依据可展开，高级参数折叠保留。</p></div></div>
         <div class="feature"><div class="idx">02</div><div><h3>质检记录</h3><p>浏览器 IndexedDB 本地存储，新增待复核 / 已确认 / 误检 / 已处置状态、处置结果与状态筛选，可回看、导出 CSV。</p></div></div>
@@ -804,7 +1356,7 @@
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div class="section-label">07 / 交付与边界</div>
-      <h2>可审计，可复现，<br>也敢说边界。</h2>
+      <h2>可审计，<br>也敢说边界。</h2>
       <p>不是“模型指标很高”的包装，而是一套能被评委逐项打开的质检资产。</p>
     </div>
     <div class="delivery-grid">
@@ -833,7 +1385,8 @@
   <div class="wrap foot-wrap">
     <div class="foot-brand">
       <b>DefectMind AI</b>
-      <p>基于 AIGC 增强与多模态智能分析的工业表面缺陷检测平台。用严格对照实验回答“扩散增强是否有效”。</p>
+      <p>NEU-DET 小样本钢材表面缺陷检测与扩散增强对照实验。四组同口径评估，负结果原文保留。</p>
+      <p class="foot-source">页面图像来自 NEU-DET 真实样本与质检平台实机截图，不使用 AI 生成工厂图。</p>
       <span>常德学院 AIGC 创新创业大赛 · 赛道三「AIGC 赋能工业场景」 · 2026.11</span>
     </div>
     <div class="foot-links">
