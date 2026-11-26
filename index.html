@@ -581,7 +581,7 @@
         <div class="scan-bottom">
           <div class="scan-stat"><b class="num">0.7626</b><small>mAP50 / test</small></div>
           <div class="scan-stat"><b class="num">0.4327</b><small>mAP50-95</small></div>
-          <div class="scan-stat"><b class="num">18/18</b><small>冒烟一致</small></div>
+          <div class="scan-stat"><b class="num">29/29</b><small>闭环验收</small></div>
         </div>
       </div>
     </div>
@@ -594,9 +594,9 @@
       <div class="metric"><b class="num">0.7626</b><span>测试集 mAP50</span><small>test · conf 0.001</small></div>
       <div class="metric"><b class="num">0.4327</b><span>测试集 mAP50-95</span><small>test · conf 0.001</small></div>
       <div class="metric"><b class="num">0.1393</b><span>龟裂 AP50-95</span><small>最难类别</small></div>
-      <div class="metric"><b class="num">4189</b><span>标注框</span><small>6 类 · 1800 图</small></div>
+      <div class="metric"><b class="num">4187</b><span>标注行</span><small>1800 图 · 4186 唯一框</small></div>
       <div class="metric"><b class="num">47</b><span>定向人工复核</span><small>A16 / B1 / C14 / D16</small></div>
-      <div class="metric"><b class="num">0.00px</b><span>线上线下坐标偏差</span><small>18/18 PASS</small></div>
+      <div class="metric"><b class="num">29/29</b><span>质检闭环验收</span><small>公网实机 · 0 报错</small></div>
     </div>
   </div>
 </div>
@@ -777,7 +777,7 @@
     <div class="section-head" data-reveal>
       <div class="section-label">06 / 质检平台</div>
       <h2>从一张图，<br>到一条可复核的结论。</h2>
-      <p>质检工作台、质检记录、质检报告、模型实验四页打通；风险分、复核状态与处置结果可追溯到报告快照。平台与离线预测同权重、同参数、同后处理，冒烟测试 18/18 一致。</p>
+      <p>质检工作台、质检记录、质检报告、模型实验四页打通；风险分、复核状态与处置结果可追溯到报告快照。公网质检闭环完成 29/29 实机验收。</p>
     </div>
     <div class="platform-cta" data-reveal>
       <a class="btn btn-primary" href="platform/" target="_blank" rel="noopener">打开在线质检平台 <span aria-hidden="true">↗</span></a>
@@ -794,7 +794,7 @@
         <div class="feature"><div class="idx">02</div><div><h3>质检记录</h3><p>浏览器 IndexedDB 本地存储，新增待复核 / 已确认 / 误检 / 已处置状态、处置结果与状态筛选，可回看、导出 CSV。</p></div></div>
         <div class="feature"><div class="idx">03</div><div><h3>质检报告</h3><p>单图与批次报告冻结生成时快照；单图带复核人与处置结果，批次带复核统计、待复核数与高风险占比，支持打印 PDF 与 CSV。</p></div></div>
         <div class="feature"><div class="idx">04</div><div><h3>模型实验</h3><p>A/B/C/D 指标表、六类 AP 对照、三档评估口径切换；文件缺失时显示“实验尚未完成”，绝不画占位数据。</p></div></div>
-        <div class="feature"><div class="idx">05</div><div><h3>工程保证</h3><p>18/18 冒烟通过，最大坐标偏差 0.00px；公网浏览器版单张推理约 54–57 ms（首次需下载约 11 MB 模型）。</p></div></div>
+        <div class="feature"><div class="idx">05</div><div><h3>工程保证</h3><p>公网质检闭环 29/29 实机验收；旧 IndexedDB 兼容、控制台 0 报错；单张推理约 54–57 ms（首次需下载约 11 MB 模型）。</p></div></div>
       </div>
     </div>
   </div>
@@ -811,7 +811,7 @@
       <div class="deliver-list" data-reveal>
         <div class="deliver-item"><div class="check">✓</div><div><h3>可审计数据资产</h3><p>XML 权威重建、分层划分、跨 split MD5 泄漏 0；split_manifest.csv 记录每张图的 MD5、复核结论与处置动作。</p></div></div>
         <div class="deliver-item"><div class="check">✓</div><div><h3>可复现实验</h3><p>四组对照 + 12 次评估 + 校验文件；每个数字都能对到具体 JSON/CSV。</p></div></div>
-        <div class="deliver-item"><div class="check">✓</div><div><h3>可演示平台</h3><p>质检、记录、报告、模型实验四页打通；风险评分可解释、复核处置可追溯，线上线下一体，18/18 逐图一致。</p></div></div>
+        <div class="deliver-item"><div class="check">✓</div><div><h3>可演示平台</h3><p>公网四页质检闭环；风险评分可解释、复核处置可追溯，29/29 实机验收，旧记录升级不丢失。</p></div></div>
         <div class="deliver-item"><div class="check">✓</div><div><h3>诚实的负结果</h3><p>扩散未带来可测增益，机制、边界与局限全部如实呈现，不美化、不改写。</p></div></div>
       </div>
       <aside class="limit-panel" data-reveal>
