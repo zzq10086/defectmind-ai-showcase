@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08090a">
+  <meta name="theme-color" content="#071b31">
   <meta name="description" content="DefectMind AI 工业表面缺陷质检平台：浏览器本地推理，支持风险结论、复核处置、质检报告与模型实验追溯。">
   <title>DefectMind AI · 质检平台</title>
   <link rel="icon" type="image/png" href="../favicon.png">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <svg class="svg-sprite" aria-hidden="true">
@@ -34,7 +34,7 @@
     <aside class="sidebar">
       <a class="brand" href="../" aria-label="返回 DefectMind AI 项目主页">
         <span class="brand-mark">DM</span>
-        <span class="brand-text"><strong>DefectMind</strong><small>AI inspection</small></span>
+        <span class="brand-text"><strong>DefectMind</strong><small>Industrial inspection</small></span>
       </a>
 
       <nav class="side-nav" aria-label="平台导航">
@@ -69,20 +69,20 @@
       </div>
 
       <div class="side-section side-notes">
-        <div class="side-label">平台口径</div>
-        <p>与离线 <code>predict.py</code> 使用同一权重、同一阈值、同一后处理。</p>
-        <p>conf 0.25 · iou 0.45 · imgsz 320</p>
+        <div class="side-label">适用范围</div>
+        <p>仅适用于 NEU-DET 六类热轧钢材表面缺陷；生锈、纸张等非本域图像不适用。</p>
+        <p><strong>未检出 ≠ 合格。</strong>风险结论为辅助判定，须由人工终判。</p>
       </div>
 
       <div class="side-footer">
-        <span>v2.3 · NEU-DET</span>
+        <span>v2.4 · NEU-DET</span>
         <a href="../">项目主页 <svg><use href="#i-arrow"/></svg></a>
       </div>
     </aside>
 
     <main class="main">
       <header class="topbar">
-        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageName">质检工作台</strong></div>
+        <div class="breadcrumb"><span>DefectMind AI</span><b>/</b><strong id="pageName">质检工作台</strong></div>
         <div class="top-actions">
           <span class="top-chip"><svg><use href="#i-shield"/></svg>隐私模式</span>
           <a class="top-link" href="../">返回项目主页</a>
@@ -95,12 +95,12 @@
             <div>
               <div class="kicker"><i></i>INSPECTION WORKBENCH</div>
               <h1>质检工作台</h1>
-              <p>上传钢材表面图像，在浏览器内完成缺陷定位、风险判定、复核处置与结果留存。</p>
+              <p>上传钢材表面图像，在浏览器内完成缺陷定位、风险判定、复核处置与结果留存。仅适用于 NEU-DET 六类缺陷，未检出不等于合格。</p>
             </div>
             <div class="head-pills">
               <span class="pill"><i></i>6 类缺陷</span>
               <span class="pill accent"><i></i>ONNX WASM</span>
-              <span class="pill">CPU · 320px</span>
+              <span class="pill caution"><i></i>未检出 ≠ 合格</span>
             </div>
           </div>
 
@@ -158,7 +158,7 @@
 
                 <div class="privacy-note">
                   <svg><use href="#i-shield"/></svg>
-                  <p><b>图片不会上传。</b>模型和推理都在当前浏览器完成，关闭页面后输入不会留在服务器。</p>
+                  <p><b>图片不会上传。</b>模型和推理都在当前浏览器完成。生锈、纸张及其他非钢材图像不在模型适用范围内。</p>
                 </div>
               </section>
             </aside>
@@ -499,12 +499,12 @@
   <div class="boot-overlay" id="bootOverlay">
     <div class="boot-card">
       <div class="boot-logo">DM</div>
-      <div class="boot-kicker">LOCAL INFERENCE ENGINE</div>
-      <h2>正在装载检测模型</h2>
+      <div class="boot-kicker">INDUSTRIAL VISION RUNTIME</div>
+      <h2>正在装载本地质检模型</h2>
       <p id="bootText">首次访问需下载约 22 MB 推理资源（模型 11 MB + 引擎 11 MB），之后会缓存到浏览器。</p>
       <div class="boot-progress"><i id="bootProgress"></i></div>
       <div class="boot-meta"><span id="bootPercent">0%</span><span id="bootDetail">准备运行时</span><span id="bootElapsed">0s</span></div>
-      <p class="boot-hint" id="bootHint">首次加载受网络影响，通常需要 10–30 秒；请先关闭重复打开的质检平台标签页。</p>
+      <p class="boot-hint" id="bootHint">首次加载受网络与设备性能影响；模型只下载一次，之后使用浏览器缓存。若长时间停滞，请关闭重复打开的质检平台标签页后重试。</p>
       <button class="boot-retry hidden" id="bootRetry" type="button" title="重新加载模型与页面">重新加载</button>
     </div>
   </div>
