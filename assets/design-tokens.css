@@ -1,0 +1,106 @@
+/*
+ * DefectMind unified design tokens
+ * One source of truth for the showcase and inspection platform.
+ *
+ * Usage:
+ * - Use ink tokens only for the showcase hero/footer, platform sidebar and modal scrim.
+ * - Use surface tokens for all working canvases and cards.
+ * - Use brand on light surfaces and brand-on-ink on dark surfaces.
+ * - Status colors are reserved for state, never decoration.
+ * - Do not introduce colors, radii, spacing or type sizes outside this file.
+ */
+
+:root {
+  /* Dark engineering frame */
+  --dm-ink-0: #0A0E13;
+  --dm-ink-1: #11161D;
+  --dm-ink-2: #1A2028;
+  --dm-on-ink-1: #F4F6F8;
+  --dm-on-ink-2: #A9B3BE;
+  --dm-on-ink-3: #7C8A97;
+  --dm-ink-line: rgba(255, 255, 255, .08);
+
+  /* Cool neutral working surfaces */
+  --dm-surface-0: #F4F5F6;
+  --dm-surface-1: #FFFFFF;
+  --dm-surface-2: #ECEEF0;
+  --dm-line: #E1E4E7;
+  --dm-line-strong: #C9CED4;
+
+  /* Text hierarchy */
+  --dm-text-1: #101418;
+  --dm-text-2: #3D4A57;
+  --dm-text-3: #5A6875;
+  --dm-text-4: #7C8A97;
+
+  /* Single brand accent */
+  --dm-brand: #C2410C;
+  --dm-brand-hover: #9A3412;
+  --dm-brand-quiet: #FCEFE7;
+  --dm-brand-on-ink: #FF8A3D;
+
+  /* State colors */
+  --dm-ok: #15803D;
+  --dm-ok-bg: #EFF8F1;
+  --dm-warn: #8A5A00;
+  --dm-warn-bg: #FBF4E4;
+  --dm-danger: #B91C1C;
+  --dm-danger-bg: #FDF1F0;
+
+  /* System CJK stack: no remote font request */
+  --dm-font-sans: ui-sans-serif, -apple-system, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Noto Sans SC", sans-serif;
+  --dm-font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+
+  /* Allowed radii */
+  --dm-r-4: 4px;
+  --dm-r-6: 6px;
+  --dm-r-8: 8px;
+  --dm-r-12: 12px;
+  --dm-r-16: 16px;
+  --dm-r-full: 999px;
+
+  /* Containers */
+  --dm-max-showcase: 1200px;
+  --dm-max-console: 1320px;
+  --dm-measure: 680px;
+
+  /* Elevation and motion */
+  --dm-shadow-1: 0 1px 2px rgba(10, 14, 19, .04), 0 8px 24px rgba(10, 14, 19, .05);
+  --dm-ease: cubic-bezier(.22, 1, .36, 1);
+
+  /* Spacing scale: use these ten steps only */
+  --dm-s-1: 4px;
+  --dm-s-2: 8px;
+  --dm-s-3: 12px;
+  --dm-s-4: 16px;
+  --dm-s-5: 24px;
+  --dm-s-6: 32px;
+  --dm-s-7: 48px;
+  --dm-s-8: 64px;
+  --dm-s-9: 96px;
+  --dm-s-10: 128px;
+
+  /* Type scale: use these steps only */
+  --dm-fs-11: 11px;
+  --dm-lh-11: 16px;
+  --dm-fs-12: 12px;
+  --dm-lh-12: 18px;
+  --dm-fs-14: 14px;
+  --dm-lh-14: 22px;
+  --dm-fs-16: 16px;
+  --dm-lh-16: 28px;
+  --dm-fs-18: 18px;
+  --dm-lh-18: 30px;
+  --dm-fs-20: 20px;
+  --dm-lh-20: 30px;
+  --dm-fs-24: 24px;
+  --dm-lh-24: 34px;
+  --dm-fs-30: 30px;
+  --dm-lh-30: 40px;
+  --dm-fs-36: 36px;
+  --dm-lh-36: 46px;
+  --dm-fs-48: 48px;
+  --dm-lh-48: 58px;
+  --dm-fs-60: 60px;
+  --dm-lh-60: 68px;
+}
