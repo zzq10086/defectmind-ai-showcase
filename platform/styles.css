@@ -48,6 +48,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 300;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 12px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -179,7 +197,7 @@ kbd,
   font-size: 12.5px;
   text-align: left;
   cursor: pointer;
-  transition: 150ms ease;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
 }
 
 .nav-item svg {
@@ -791,6 +809,11 @@ input[type="range"] {
   cursor: pointer;
 }
 
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 4px;
+}
+
 input[type="range"]::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
@@ -821,7 +844,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 7px;
   font-size: 10.5px;
   cursor: pointer;
-  transition: 150ms ease;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease, transform 150ms ease;
 }
 
 .primary-button {
@@ -1160,7 +1183,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--text-2);
   text-align: left;
   cursor: pointer;
-  transition: 150ms ease;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease, transform 150ms ease;
 }
 
 .outcome-action:hover:not(:disabled) {
@@ -1230,7 +1253,7 @@ input[type="range"]::-moz-range-thumb {
   background: rgba(255, 255, 255, 0.02);
   color: var(--muted);
   cursor: pointer;
-  transition: 150ms ease;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
 }
 
 .icon-button:hover:not(:disabled) {
@@ -1425,6 +1448,10 @@ input[type="range"]::-moz-range-thumb {
   outline: none;
 }
 
+.search-box:focus-within {
+  border-color: rgba(124, 134, 232, 0.55);
+}
+
 .search-box input::placeholder {
   color: var(--faint);
 }
@@ -1448,7 +1475,7 @@ input[type="range"]::-moz-range-thumb {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--panel);
-  transition: 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .history-card:hover {
@@ -1645,7 +1672,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--text-2);
   font-size: 9.5px;
   outline: none;
-  transition: 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .report-field input::placeholder {
@@ -1905,7 +1932,7 @@ input[type="range"]::-moz-range-thumb {
   border: 1px solid var(--line);
   border-radius: 9px;
   background: rgba(255, 255, 255, 0.018);
-  transition: 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .report-card:hover {
@@ -3734,6 +3761,13 @@ input[type="range"]::-moz-range-thumb {
   color: var(--text);
   font-size: 11.5px;
   outline: none;
+}
+
+.review-field input:focus-visible,
+.review-field select:focus-visible,
+.review-field textarea:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
 }
 
 .review-field textarea {
@@ -6185,6 +6219,15 @@ h1 {
   .control-panel .sample-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .skip-link {
+    top: 8px;
+    left: 8px;
+    padding: 7px 10px;
+    font-size: 11px;
   }
 }
 
