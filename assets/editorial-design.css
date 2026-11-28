@@ -1,0 +1,11 @@
+:root {
+  --dm-paper: #F7F5F0;
+  --dm-paper-deep: #EEEBE3;
+  --dm-graphite: #202722;
+  --dm-graphite-2: #2E3730;
+  --dm-rule: #D3D0C7;
+  --dm-rule-dark: rgba(247, 245, 240, .18);
+  --dm-ink-blue: #27384A;
+  --dm-signal: #C13C1F;
+  --dm-muted-strong: #5B675F;
+}
