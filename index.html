@@ -1890,15 +1890,6 @@
     line-height:1.6;
     overflow-x:clip;
   }
-  .skip-link{
-    position:fixed;top:var(--dm-s-2);left:var(--dm-s-2);z-index:200;
-    padding:var(--dm-s-2) var(--dm-s-3);
-    border:1px solid var(--dm-brand);border-radius:var(--dm-r-4);
-    background:var(--dm-surface-1);color:var(--dm-text-1);
-    font-size:var(--dm-fs-12);line-height:var(--dm-lh-12);
-    transform:translateY(-200%);
-  }
-  .skip-link:focus-visible{transform:translateY(0)}
   h1,h2,h3{font-family:var(--dm-font-sans);font-weight:600 !important;letter-spacing:0}
   h2{font-size:var(--dm-fs-48);line-height:var(--dm-lh-48);color:var(--dm-text-1);text-wrap:balance}
   h3{font-size:var(--dm-fs-18);line-height:var(--dm-lh-18);color:var(--dm-text-1)}
@@ -2284,7 +2275,6 @@
     background-image: none !important;
     box-shadow: none !important;
   }
-  .skip-link { border-color: var(--dm-signal); border-radius: 0; color: var(--dm-graphite); }
 
   body {
     background: var(--dm-paper);
@@ -2556,7 +2546,6 @@
 </head>
 <body>
 
-<a class="skip-link" href="#main">跳到主要内容</a>
 <div class="progress" id="progress"></div>
 
 <div class="site-head">
@@ -2588,8 +2577,6 @@
       <a class="nav-chip" href="#download">材料下载 ↓</a>
     </div>
   </nav>
-
-  <main id="main">
 </div>
 
 <header class="hero" id="top">
@@ -2604,7 +2591,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="platform/" target="_blank" rel="noopener">打开在线质检平台 <span aria-hidden="true">↗</span></a>
-          <a class="btn btn-ghost" href="#results">查看四组对照 <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#results">查看四组对照 →</a>
         </div>
         <div class="hero-meta">
           <div><b>1800</b>张 200×200 灰度图</div>
@@ -2616,7 +2603,7 @@
 
       <figure class="hero-plate">
         <div class="hero-plate-frame">
-          <img src="showcase_assets/detection_demo.png" alt="NEU-DET 钢材表面龟裂缺陷检测前后对比" width="644" height="368" fetchpriority="high">
+          <img src="showcase_assets/detection_demo.png" alt="NEU-DET 钢材表面龟裂缺陷检测前后对比">
         </div>
         <figcaption class="hero-plate-cap">
           <span>NEU-DET / 真实样本</span>
@@ -2691,16 +2678,16 @@
     </div>
     <div class="detect-grid">
       <figure class="demo-panel" data-reveal>
-        <img src="showcase_assets/detection_demo.png" alt="原始钢材表面图像与 YOLO26n 检测结果对比" width="644" height="368" loading="lazy">
+        <img src="showcase_assets/detection_demo.png" alt="原始钢材表面图像与 YOLO26n 检测结果对比">
         <figcaption class="demo-cap">左：原始图像　右：检测结果（类别 + 置信度框）· 与离线 predict.py 同配色同后处理</figcaption>
       </figure>
       <div class="class-grid" data-reveal>
-        <div class="class-card"><img src="showcase_assets/class_crazing.png" alt="龟裂缺陷样例" width="400" height="400" loading="lazy"><div>龟裂 / crazing</div></div>
-        <div class="class-card"><img src="showcase_assets/class_inclusion.png" alt="夹杂缺陷样例" width="400" height="400" loading="lazy"><div>夹杂 / inclusion</div></div>
-        <div class="class-card"><img src="showcase_assets/class_patches.png" alt="斑块缺陷样例" width="400" height="400" loading="lazy"><div>斑块 / patches</div></div>
-        <div class="class-card"><img src="showcase_assets/class_pitted_surface.png" alt="麻点表面缺陷样例" width="400" height="400" loading="lazy"><div>麻点 / pitted_surface</div></div>
-        <div class="class-card"><img src="showcase_assets/class_rolled-in_scale.png" alt="氧化铁皮压入缺陷样例" width="400" height="400" loading="lazy"><div>氧化铁皮压入</div></div>
-        <div class="class-card"><img src="showcase_assets/class_scratches.png" alt="划痕缺陷样例" width="400" height="400" loading="lazy"><div>划痕 / scratches</div></div>
+        <div class="class-card"><img src="showcase_assets/class_crazing.png" alt="龟裂缺陷样例"><div>龟裂 / crazing</div></div>
+        <div class="class-card"><img src="showcase_assets/class_inclusion.png" alt="夹杂缺陷样例"><div>夹杂 / inclusion</div></div>
+        <div class="class-card"><img src="showcase_assets/class_patches.png" alt="斑块缺陷样例"><div>斑块 / patches</div></div>
+        <div class="class-card"><img src="showcase_assets/class_pitted_surface.png" alt="麻点表面缺陷样例"><div>麻点 / pitted_surface</div></div>
+        <div class="class-card"><img src="showcase_assets/class_rolled-in_scale.png" alt="氧化铁皮压入缺陷样例"><div>氧化铁皮压入</div></div>
+        <div class="class-card"><img src="showcase_assets/class_scratches.png" alt="划痕缺陷样例"><div>划痕 / scratches</div></div>
       </div>
     </div>
   </div>
@@ -2714,9 +2701,9 @@
       <p>扩散方案不是“凭空生成一张图”，而是先在原图上程序化构造龟裂形态 mask，再由 SD1.5 Inpainting 在 mask 内填充纹理，最后按 mask 贴回。mask 外像素严格不变。</p>
     </div>
     <div class="compare-grid" data-reveal>
-      <div class="compare-card"><img src="showcase_assets/aigc_real.png" alt="真实龟裂样本" width="300" height="300" loading="lazy"><div class="cap"><b>真实样本</b><span>ORIGINAL</span></div></div>
-      <div class="compare-card"><img src="showcase_assets/aigc_c.png" alt="程序化增强样本" width="300" height="300" loading="lazy"><div class="cap"><b>程序化增强</b><span>CONTROL · C</span></div></div>
-      <div class="compare-card is-d"><img src="showcase_assets/aigc_d.png" alt="扩散增强样本" width="300" height="300" loading="lazy"><div class="cap"><b>扩散增强</b><span>AIGC · D</span></div></div>
+      <div class="compare-card"><img src="showcase_assets/aigc_real.png" alt="真实龟裂样本"><div class="cap"><b>真实样本</b><span>ORIGINAL</span></div></div>
+      <div class="compare-card"><img src="showcase_assets/aigc_c.png" alt="程序化增强样本"><div class="cap"><b>程序化增强</b><span>CONTROL · C</span></div></div>
+      <div class="compare-card is-d"><img src="showcase_assets/aigc_d.png" alt="扩散增强样本"><div class="cap"><b>扩散增强</b><span>AIGC · D</span></div></div>
     </div>
     <div class="pipeline" data-reveal>
       <div class="pipe-step"><small>STEP 01</small><b>选源图</b><span>20% 子集内的龟裂样本</span></div>
@@ -2828,7 +2815,7 @@
     </div>
     <div class="platform-grid">
       <figure class="platform-shot" data-reveal>
-        <img src="showcase_assets/app_workbench.png?v=unified-20261127" alt="DefectMind AI 质检工作台界面" width="1440" height="1200" loading="lazy">
+        <img src="showcase_assets/app_workbench.png?v=unified-20261127" alt="DefectMind AI 质检工作台界面">
         <figcaption>
           <span>质检工作台 · 1440×1200</span>
           <span>公网版 / IndexedDB 本地记录</span>
@@ -2900,9 +2887,8 @@
     </div>
   </div>
 </footer>
-</main>
 
-<a class="to-top" id="toTop" href="#top" aria-label="回到顶部"><span aria-hidden="true">↑</span></a>
+<a class="to-top" id="toTop" href="#top" aria-label="回到顶部">↑</a>
 
 <script>
   document.documentElement.classList.add("js");
@@ -2958,17 +2944,7 @@
     });
   }
 
-  let scrollQueued = false;
-  function queueScroll() {
-    if (scrollQueued) return;
-    scrollQueued = true;
-    requestAnimationFrame(() => {
-      scrollQueued = false;
-      onScroll();
-    });
-  }
-
-  window.addEventListener("scroll", queueScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   onScroll();
 </script>
